@@ -1,0 +1,1118 @@
+[
+  {
+    "id": "os-1",
+    "category": "Operating System",
+    "title": "OS Name",
+    "type": "relevance",
+    "query": "name of operating system",
+    "description": "Retrieves the standard name of the operating system.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-2",
+    "category": "Operating System",
+    "title": "OS Version",
+    "type": "relevance",
+    "query": "(name of it, version of it) of operating system",
+    "description": "Gets both the name and the specific version of the OS.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-3",
+    "category": "Operating System",
+    "title": "OS Architecture",
+    "type": "relevance",
+    "query": "(name of it, architecture of it) of operating system",
+    "description": "Checks if the OS is 32-bit or 64-bit architecture.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-4",
+    "category": "Operating System",
+    "title": "Is Windows",
+    "type": "relevance",
+    "query": "windows of operating system",
+    "description": "Returns true if the endpoint is running Microsoft Windows.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-5",
+    "category": "Operating System",
+    "title": "Is Mac",
+    "type": "relevance",
+    "query": "mac of operating system",
+    "description": "Returns true if the endpoint is running macOS.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-6",
+    "category": "Operating System",
+    "title": "Is Unix",
+    "type": "relevance",
+    "query": "unix of operating system",
+    "description": "Returns true if the endpoint is running Unix/Linux.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-7",
+    "category": "Operating System",
+    "title": "Win Service Pack",
+    "type": "relevance",
+    "query": "service pack major version of operating system",
+    "description": "Gets the major service pack integer for Windows machines.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-8",
+    "category": "Operating System",
+    "title": "Uptime",
+    "type": "relevance",
+    "query": "uptime of operating system",
+    "description": "Returns a time interval showing how long the system has been running.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-9",
+    "category": "Operating System",
+    "title": "OS Introspector",
+    "type": "relevance",
+    "query": "properties of type \"operating system\"",
+    "description": "Lists all available relevance properties for the OS object.",
+    "isFavorite": false
+  },
+  {
+    "id": "hw-1",
+    "category": "Hardware",
+    "title": "Processor Vendors",
+    "type": "relevance",
+    "query": "vendor names of processors",
+    "description": "Lists the vendor name for every logical processor.",
+    "isFavorite": false
+  },
+  {
+    "id": "hw-2",
+    "category": "Hardware",
+    "title": "Unique Processor Vendors",
+    "type": "relevance",
+    "query": "unique values of vendor names of processors",
+    "description": "Collapses identical processor vendors into a single result.",
+    "isFavorite": false
+  },
+  {
+    "id": "hw-3",
+    "category": "Hardware",
+    "title": "Processor Speeds",
+    "type": "relevance",
+    "query": "speeds of processors",
+    "description": "Returns the clock speed of installed processors.",
+    "isFavorite": false
+  },
+  {
+    "id": "hw-4",
+    "category": "Hardware",
+    "title": "Processor Family",
+    "type": "relevance",
+    "query": "family names of processors",
+    "description": "Identifies the specific CPU family (e.g. Core i7).",
+    "isFavorite": false
+  },
+  {
+    "id": "hw-5",
+    "category": "Hardware",
+    "title": "RAM Introspector",
+    "type": "relevance",
+    "query": "properties of type \"ram\"",
+    "description": "Lists all available relevance properties for RAM.",
+    "isFavorite": false
+  },
+  {
+    "id": "dr-1",
+    "category": "Drives",
+    "title": "Drive Names",
+    "type": "relevance",
+    "query": "names of drives",
+    "description": "Returns the letter or mount point of connected drives.",
+    "isFavorite": false
+  },
+  {
+    "id": "dr-2",
+    "category": "Drives",
+    "title": "Mac Free Space",
+    "type": "relevance",
+    "query": "free space of volume \"Macintosh HD\"",
+    "description": "Checks the free space of the primary macOS volume.",
+    "isFavorite": false
+  },
+  {
+    "id": "dr-3",
+    "category": "Drives",
+    "title": "Windows Drive Space",
+    "type": "relevance",
+    "query": "(free spaces of it, names of it) of drives",
+    "description": "Gets free space in bytes alongside the drive letter.",
+    "isFavorite": false
+  },
+  {
+    "id": "dr-4",
+    "category": "Drives",
+    "title": "Drive Introspector",
+    "type": "relevance",
+    "query": "properties of type \"drive\"",
+    "description": "Lists all available relevance properties for drive objects.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-1",
+    "category": "Folders & Files",
+    "title": "Parent Folder of File",
+    "type": "relevance",
+    "query": "parent folder of file \"C:/tempo/n.txt\"",
+    "description": "Finds the directory containing a specific file.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-2",
+    "category": "Folders & Files",
+    "title": "Parent Folder of Folder",
+    "type": "relevance",
+    "query": "parent folder of folder \"C:\\Program Files (x86)\\BigFix Enterprise\\BES Client\"",
+    "description": "Traverses up one directory level.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-3",
+    "category": "Folders & Files",
+    "title": "Folder Name",
+    "type": "relevance",
+    "query": "name of folder \"/usr/bin\"",
+    "description": "Returns just the string name of the target folder.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-4",
+    "category": "Folders & Files",
+    "title": "Folder Path",
+    "type": "relevance",
+    "query": "pathname of folder \"C:\\Program Files (x86)\\BigFix Enterprise\\BES Client\"",
+    "description": "Returns the absolute path of a specified folder.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-5",
+    "category": "Folders & Files",
+    "title": "File Exists (Unix)",
+    "type": "relevance",
+    "query": "exists file \"passwd\" of folder \"/etc\"",
+    "description": "Validates if a file exists in a Unix path.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-6",
+    "category": "Folders & Files",
+    "title": "File Exists (Windows)",
+    "type": "relevance",
+    "query": "exists file \"c:\\windows\\notepad.exe\"",
+    "description": "Validates if a file exists in a Windows path.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-7",
+    "category": "Folders & Files",
+    "title": "Regapp File Path",
+    "type": "relevance",
+    "query": "pathname of regapp \"firefox.exe\"",
+    "description": "Finds the file path of a registered application.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-8",
+    "category": "Folders & Files",
+    "title": "System File Check",
+    "type": "relevance",
+    "query": "exists file \"mshtml.dll\" of system folder",
+    "description": "Checks for a specific DLL in the OS system folder.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-9",
+    "category": "Folders & Files",
+    "title": "System File Name",
+    "type": "relevance",
+    "query": "name of file \"mshtml.dll\" of system folder",
+    "description": "Returns the exact name of a file in the system folder.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-10",
+    "category": "Folders & Files",
+    "title": "System File Parent",
+    "type": "relevance",
+    "query": "name of parent folder of file \"mshtml.dll\" of system folder",
+    "description": "Gets the system folder name (e.g. System32).",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-11",
+    "category": "Folders & Files",
+    "title": "System File Path",
+    "type": "relevance",
+    "query": "pathname of file \"mshtml.dll\" of system folder",
+    "description": "Gets the absolute path to a system folder file.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-12",
+    "category": "Folders & Files",
+    "title": "File Mod Time",
+    "type": "relevance",
+    "query": "modification time of file \"mshtml.dll\" of system folder",
+    "description": "Retrieves the last modified timestamp of a file.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-13",
+    "category": "Folders & Files",
+    "title": "File Version",
+    "type": "relevance",
+    "query": "version of file \"mshtml.dll\" of system folder",
+    "description": "Extracts the version metadata from a Windows file.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-14",
+    "category": "Folders & Files",
+    "title": "File Size",
+    "type": "relevance",
+    "query": "size of file \"mshtml.dll\" of system folder",
+    "description": "Returns the size of the file in bytes.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-15",
+    "category": "Folders & Files",
+    "title": "File SHA1",
+    "type": "relevance",
+    "query": "sha1 of file \"mshtml.dll\" of system folder",
+    "description": "Calculates the SHA1 hash of a file for integrity checking.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-16",
+    "category": "Folders & Files",
+    "title": "Read Text File (Line 1)",
+    "type": "relevance",
+    "query": "line 1 of file \"/tmp/myfile.txt\"",
+    "description": "Reads the first line of content inside a text file.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-17",
+    "category": "Folders & Files",
+    "title": "Folder Introspector",
+    "type": "relevance",
+    "query": "properties of type \"folder\"",
+    "description": "Lists all available relevance properties for folders.",
+    "isFavorite": false
+  },
+  {
+    "id": "ff-18",
+    "category": "Folders & Files",
+    "title": "File Introspector",
+    "type": "relevance",
+    "query": "properties of type \"file\"",
+    "description": "Lists all available relevance properties for files.",
+    "isFavorite": false
+  },
+  {
+    "id": "rg-1",
+    "category": "Registry",
+    "title": "Key Exists",
+    "type": "relevance",
+    "query": "exists key \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry",
+    "description": "Tests if a specific registry key exists.",
+    "isFavorite": false
+  },
+  {
+    "id": "rg-2",
+    "category": "Registry",
+    "title": "Value Exists in Key",
+    "type": "relevance",
+    "query": "exists value whose (name of it is \"Version\") of key \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry",
+    "description": "Validates if a specific value exists inside a key.",
+    "isFavorite": false
+  },
+  {
+    "id": "rg-3",
+    "category": "Registry",
+    "title": "Get Value",
+    "type": "relevance",
+    "query": "value \"Version\" of key \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry",
+    "description": "Retrieves the contents of a registry value.",
+    "isFavorite": false
+  },
+  {
+    "id": "rg-4",
+    "category": "Registry",
+    "title": "List Names & Values",
+    "type": "relevance",
+    "query": "(names of it, it) of values of key \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry",
+    "description": "Iterates through all values inside a registry key.",
+    "isFavorite": false
+  },
+  {
+    "id": "rg-5",
+    "category": "Registry",
+    "title": "Last Write Time",
+    "type": "relevance",
+    "query": "last write time of key \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry",
+    "description": "Shows when the registry key was last modified.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-1",
+    "category": "Network",
+    "title": "Non-Loopback IPs",
+    "type": "relevance",
+    "query": "addresses whose (it as string != \"0.0.0.0\") of ip interfaces whose (loopback of it = false) of network as string",
+    "description": "Finds real IP addresses assigned to the machine.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-2",
+    "category": "Network",
+    "title": "IPs",
+    "type": "relevance",
+    "query": "(addresses of it) of ip interfaces of network as string",
+    "description": "Gets IP addresses of network interfaces.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-3",
+    "category": "Network",
+    "title": "Adapter Names",
+    "type": "relevance",
+    "query": "names of adapters of network",
+    "description": "Lists all network interface adapter names.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-4",
+    "category": "Network",
+    "title": "Active Adapters",
+    "type": "relevance",
+    "query": "friendly names of adapters whose (up of it = true) of network",
+    "description": "Shows only adapters that are currently active/online.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-5",
+    "category": "Network",
+    "title": "Online IPv4 Addresses",
+    "type": "relevance",
+    "query": "addresses of ipv4 interfaces whose (exists address of it) of adapters whose (up of it = true) of network",
+    "description": "Retrieves active IPv4 addresses filtering out disconnected ones.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-6",
+    "category": "Network",
+    "title": "Adapter Names & IPv4s",
+    "type": "relevance",
+    "query": "(name of adapter of it, addresses of it) of ipv4 interfaces of adapters whose (up of it = true) of network",
+    "description": "Pairs the friendly adapter name with its IPv4 address.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-7",
+    "category": "Network",
+    "title": "CIDR Strings",
+    "type": "relevance",
+    "query": "(name of adapter of it, cidr string of it) of ipv4 interfaces of adapters whose (up of it = true) of network",
+    "description": "Returns subnet mask information in CIDR format.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-8",
+    "category": "Network",
+    "title": "Subnet Check (192.168)",
+    "type": "relevance",
+    "query": "exists (ipv4 interfaces of adapters whose (up of it = true) of network) whose (cidr string of it = \"192.168.44.0/24\")",
+    "description": "Tests if the machine is active on a specific subnet.",
+    "isFavorite": false
+  },
+  {
+    "id": "nt-9",
+    "category": "Network",
+    "title": "Network Introspector",
+    "type": "relevance",
+    "query": "properties of type \"network\"",
+    "description": "Lists all available relevance properties for networking.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-1",
+    "category": "Applications",
+    "title": "List All Regapps",
+    "type": "relevance",
+    "query": "names of regapps",
+    "description": "Returns the executables of all registered applications.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-2",
+    "category": "Applications",
+    "title": "Regapp Versions",
+    "type": "relevance",
+    "query": "(names of it, versions of it) of regapps",
+    "description": "Pairs the application executable with its version number.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-3",
+    "category": "Applications",
+    "title": "Check Chrome (Win)",
+    "type": "relevance",
+    "query": "exists regapp \"chrome.exe\"",
+    "description": "Checks if Google Chrome is installed on Windows.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-4",
+    "category": "Applications",
+    "title": "Check Chrome (Mac)",
+    "type": "relevance",
+    "query": "exists regapp \"Google Chrome.app\"",
+    "description": "Checks if Google Chrome is installed on macOS.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-5",
+    "category": "Applications",
+    "title": "Missing Chrome (Win)",
+    "type": "relevance",
+    "query": "not exists regapp \"chrome.exe\"",
+    "description": "Returns true if Google Chrome is missing on Windows.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-6",
+    "category": "Applications",
+    "title": "Missing Chrome (Mac)",
+    "type": "relevance",
+    "query": "not exists regapp \"Google Chrome.app\"",
+    "description": "Returns true if Google Chrome is missing on macOS.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-7",
+    "category": "Applications",
+    "title": "Compare Version Strings",
+    "type": "relevance",
+    "query": "\"5.00\" as version = \"5.50\" as version",
+    "description": "Demonstrates logic for comparing version objects safely.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-8",
+    "category": "Applications",
+    "title": "Chrome Version Check (Win)",
+    "type": "relevance",
+    "query": "exists regapp \"chrome.exe\" whose (version of it < \"55.0.5.14\" as version)",
+    "description": "Finds Windows endpoints running outdated versions of Chrome.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-9",
+    "category": "Applications",
+    "title": "Chrome Version Check (Mac)",
+    "type": "relevance",
+    "query": "exists regapp \"Google Chrome.app\" whose (version of it < \"55.0.5.14\" as version)",
+    "description": "Finds macOS endpoints running outdated versions of Chrome.",
+    "isFavorite": false
+  },
+  {
+    "id": "ap-10",
+    "category": "Applications",
+    "title": "App Introspector",
+    "type": "relevance",
+    "query": "properties of type \"application\"",
+    "description": "Lists all available relevance properties for applications.",
+    "isFavorite": false
+  },
+  {
+    "id": "sv-1",
+    "category": "Services",
+    "title": "Service Exists",
+    "type": "relevance",
+    "query": "exists service \"BesClient\"",
+    "description": "Checks if a service is installed, regardless of running state.",
+    "isFavorite": false
+  },
+  {
+    "id": "sv-2",
+    "category": "Services",
+    "title": "Service Running",
+    "type": "relevance",
+    "query": "exists running service \"BesClient\"",
+    "description": "Checks if a specific service is currently active.",
+    "isFavorite": false
+  },
+  {
+    "id": "sv-3",
+    "category": "Services",
+    "title": "All Services Details",
+    "type": "relevance",
+    "query": "(display name of it, login account of it, state of it, image paths of it) of services",
+    "description": "Gets comprehensive telemetry on all installed services.",
+    "isFavorite": false
+  },
+  {
+    "id": "sv-4",
+    "category": "Services",
+    "title": "List Raw Services",
+    "type": "relevance",
+    "query": "services",
+    "description": "Returns raw service objects.",
+    "isFavorite": false
+  },
+  {
+    "id": "sv-5",
+    "category": "Services",
+    "title": "Service Introspector",
+    "type": "relevance",
+    "query": "properties of type \"service\"",
+    "description": "Lists all available relevance properties for services.",
+    "isFavorite": false
+  },
+  {
+    "id": "us-1",
+    "category": "Users",
+    "title": "User Introspector",
+    "type": "relevance",
+    "query": "properties of type \"user\"",
+    "description": "Lists all available relevance properties for users.",
+    "isFavorite": false
+  },
+  {
+    "id": "us-2",
+    "category": "Users",
+    "title": "Filter User Properties",
+    "type": "relevance",
+    "query": "properties whose (it as string contains \"password\") of type \"user\"",
+    "description": "Finds user properties containing the keyword password.",
+    "isFavorite": false
+  },
+  {
+    "id": "us-3",
+    "category": "Users",
+    "title": "Current user",
+    "type": "relevance",
+    "query": "names of current users",
+    "description": "Returns the names of actively logged on users.svzvdv",
+    "isFavorite": false
+  },
+  {
+    "id": "el-1",
+    "category": "Event Log",
+    "title": "Oldest App Log Record",
+    "type": "relevance",
+    "query": "description of record (oldest record number of it) of application event log",
+    "description": "Fetches the description of the oldest application event.",
+    "isFavorite": false
+  },
+  {
+    "id": "el-2",
+    "category": "Event Log",
+    "title": "App Log Exists",
+    "type": "relevance",
+    "query": "exists event log \"Application\"",
+    "description": "Validates the existence of the Application event log.",
+    "isFavorite": false
+  },
+  {
+    "id": "wm-1",
+    "category": "WMI",
+    "title": "Mapped Drives (Raw)",
+    "type": "relevance",
+    "query": "(selects (\"ProviderName from win32_LogicalDisk\")of WMI)",
+    "description": "Queries WMI for logical disk provider names.",
+    "isFavorite": false
+  },
+  {
+    "id": "wm-3",
+    "category": "WMI",
+    "title": "WMI Introspector",
+    "type": "relevance",
+    "query": "properties of type \"wmi\"",
+    "description": "Lists all available relevance properties for WMI queries.",
+    "isFavorite": false
+  },
+  {
+    "id": "ad-1",
+    "category": "Advanced",
+    "title": "OS + Hardware Combo",
+    "type": "relevance",
+    "query": "(name of operating system, family names of processors, (size of ram) / (1024*1024*1024))",
+    "description": "Provides full hardware and software system profiling in one query.",
+    "isFavorite": false
+  },
+  {
+    "id": "ad-2",
+    "category": "Advanced",
+    "title": "Win Registry + File System Combo",
+    "type": "relevance",
+    "query": "if (windows of operating system) then (exists file \"mshtml.dll\" of system folder AND exists key \"HKEY_LOCAL_MACHINE\\SOFTWARE\" of registry) else false",
+    "description": "Win Registry + File System Combo validation.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-2",
+    "category": "Drives",
+    "title": "Drive Volumes",
+    "type": "relevance",
+    "query": "volumes of drives",
+    "description": "Returns volume names of connected drives.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-3",
+    "category": "Drives",
+    "title": "Drive Types",
+    "type": "relevance",
+    "query": "types of drives",
+    "description": "Identifies if a drive is fixed, removable, or network.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-4",
+    "category": "Drives",
+    "title": "Free Spaces (Bytes)",
+    "type": "relevance",
+    "query": "free spaces of drives",
+    "description": "Raw free space in bytes across all drives.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-5",
+    "category": "Drives",
+    "title": "Total Spaces (Bytes)",
+    "type": "relevance",
+    "query": "total spaces of drives",
+    "description": "Raw total space in bytes across all drives.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-6",
+    "category": "Drives",
+    "title": "Root Folders",
+    "type": "relevance",
+    "query": "root folders of drives",
+    "description": "Returns the top-level directory folder of all drives.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-7",
+    "category": "Drives",
+    "title": "File System Types",
+    "type": "relevance",
+    "query": "file system types of drives",
+    "description": "Checks if the drive is NTFS, FAT32, exFAT, etc.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-8",
+    "category": "Drives",
+    "title": "Is Compressed?",
+    "type": "relevance",
+    "query": "(name of it, fs_vol_is_compressed of it) of drives",
+    "description": "Checks if the OS level volume compression is enabled.",
+    "isFavorite": false
+  },
+  {
+    "id": "drv-9",
+    "category": "Drives",
+    "title": "Supports Encryption?",
+    "type": "relevance",
+    "query": "(name of it, file_supports_encryption of it) of drives",
+    "description": "Checks if the file system natively supports encryption.",
+    "isFavorite": false
+  },
+  {
+    "id": "ram-1",
+    "category": "Hardware",
+    "title": "Size of RAM (Bytes)",
+    "type": "relevance",
+    "query": "size of ram",
+    "description": "Total installed physical memory in bytes.",
+    "isFavorite": false
+  },
+  {
+    "id": "ram-2",
+    "category": "Hardware",
+    "title": "Total Amount of RAM",
+    "type": "relevance",
+    "query": "total amount of ram",
+    "description": "Available total memory object.",
+    "isFavorite": false
+  },
+  {
+    "id": "ram-3",
+    "category": "Hardware",
+    "title": "Used RAM Amount",
+    "type": "relevance",
+    "query": "used amount of ram",
+    "description": "Amount of memory currently consumed by the OS.",
+    "isFavorite": false
+  },
+  {
+    "id": "ram-4",
+    "category": "Hardware",
+    "title": "Free RAM Amount",
+    "type": "relevance",
+    "query": "free amount of ram",
+    "description": "Amount of memory currently available.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-10",
+    "category": "Operating System",
+    "title": "Base Name",
+    "type": "relevance",
+    "query": "base name of operating system",
+    "description": "Returns the core name of the OS without version modifiers.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-11",
+    "category": "Operating System",
+    "title": "Release Details",
+    "type": "relevance",
+    "query": "release of operating system",
+    "description": "Returns the OS release string.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-12",
+    "category": "Operating System",
+    "title": "Build Number",
+    "type": "relevance",
+    "query": "build of operating system",
+    "description": "Returns the OS compile build identifier.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-13",
+    "category": "Operating System",
+    "title": "Machine Type",
+    "type": "relevance",
+    "query": "machine of operating system",
+    "description": "Identifies the platform hardware type.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-14",
+    "category": "Operating System",
+    "title": "Major/Minor Version",
+    "type": "relevance",
+    "query": "(major version of it, minor version of it) of operating system",
+    "description": "Splits the OS version into major and minor integers.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-15",
+    "category": "Operating System",
+    "title": "Is Virtual Machine?",
+    "type": "relevance",
+    "query": "virtual machine of operating system",
+    "description": "Detects if the OS is running inside a hypervisor.",
+    "isFavorite": false
+  },
+  {
+    "id": "os-16",
+    "category": "Operating System",
+    "title": "Boot Time",
+    "type": "relevance",
+    "query": "boot time of operating system",
+    "description": "Timestamp of when the OS was last powered on.",
+    "isFavorite": false
+  },
+  {
+    "id": "net-12",
+    "category": "Network",
+    "title": "Winsock2 Supported",
+    "type": "relevance",
+    "query": "winsock2 supported of network",
+    "description": "Checks for Winsock2 API support on Windows.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-10",
+    "category": "Services",
+    "title": "All Service Names",
+    "type": "relevance",
+    "query": "service names of services",
+    "description": "Returns the short names of all services.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-11",
+    "category": "Services",
+    "title": "Display Names",
+    "type": "relevance",
+    "query": "display names of services",
+    "description": "Returns the user-friendly names of all services.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-12",
+    "category": "Services",
+    "title": "Service States",
+    "type": "relevance",
+    "query": "states of services",
+    "description": "Checks if services are Running, Stopped, or Paused.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-13",
+    "category": "Services",
+    "title": "Start Types",
+    "type": "relevance",
+    "query": "start types of services",
+    "description": "Checks if services are Automatic, Manual, or Disabled.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-14",
+    "category": "Services",
+    "title": "Image Paths",
+    "type": "relevance",
+    "query": "image paths of services",
+    "description": "Returns the binary paths for service executables.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-15",
+    "category": "Services",
+    "title": "Is Running? (Boolean)",
+    "type": "relevance",
+    "query": "running of services",
+    "description": "Returns a true/false boolean for active services.",
+    "isFavorite": false
+  },
+  {
+    "id": "srv-16",
+    "category": "Services",
+    "title": "Process IDs (PIDs)",
+    "type": "relevance",
+    "query": "pids of services",
+    "description": "Maps running services to their Windows Process IDs.",
+    "isFavorite": false
+  },
+  {
+    "id": "fil-10",
+    "category": "Folders & Files",
+    "title": "System Files Sizes",
+    "type": "relevance",
+    "query": "sizes of files of system folder",
+    "description": "Iterates the size of every file in the System folder.",
+    "isFavorite": false
+  },
+  {
+    "id": "fil-11",
+    "category": "Folders & Files",
+    "title": "System Files Versions",
+    "type": "relevance",
+    "query": "versions of files of system folder",
+    "description": "Iterates versions of all files in the System folder.",
+    "isFavorite": false
+  },
+  {
+    "id": "fil-12",
+    "category": "Folders & Files",
+    "title": "System Files MD5s",
+    "type": "relevance",
+    "query": "md5s of files of system folder",
+    "description": "Calculates MD5 hashes for system files.",
+    "isFavorite": false
+  },
+  {
+    "id": "fil-13",
+    "category": "Folders & Files",
+    "title": "System Files SHA256",
+    "type": "relevance",
+    "query": "sha256s of files of system folder",
+    "description": "Calculates SHA256 hashes for system files.",
+    "isFavorite": false
+  },
+  {
+    "id": "fil-14",
+    "category": "Folders & Files",
+    "title": "Folder Descendants",
+    "type": "relevance",
+    "query": "descendants of folder \"C:\\temp\"",
+    "description": "Recursively searches down a folder tree.",
+    "isFavorite": false
+  },
+  {
+    "id": "wmi-10",
+    "category": "WMI",
+    "title": "WMI OS Query",
+    "type": "relevance",
+    "query": "selects \"* from Win32_OperatingSystem\" of wmi",
+    "description": "Direct WMI query to retrieve OS class properties.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-1",
+    "category": "Advanced",
+    "title": "Non-Auto Running Services",
+    "type": "relevance",
+    "query": "(service name of it, state of it, start type of it) of services whose (state of it = \"Running\" AND start type of it != \"auto\")",
+    "description": "Detects services that are currently running but are not configured to start automatically.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-2",
+    "category": "Advanced",
+    "title": "Drives Low on Space (<10%)",
+    "type": "relevance",
+    "query": "(name of it, free space of it * 100 / total space of it) of drives whose (free space of it * 100 / total space of it < 10)",
+    "description": "Detects drives running dangerously low on disk space (less than 10% capacity).",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-3",
+    "category": "Advanced",
+    "title": "Local Administrators",
+    "type": "relevance",
+    "query": "members of local group \"Administrators\"",
+    "description": "Lists all user accounts that possess local administrator rights.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-4",
+    "category": "Advanced",
+    "title": "Registry Value Mismatch",
+    "type": "relevance",
+    "query": "exists key \"HKLM\\SOFTWARE\\Test\" whose (value \"Config\" of it as string != \"ExpectedValue\") of registry",
+    "description": "Detects wrong config values by checking if a registry key does not match an expected string.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-5",
+    "category": "Advanced",
+    "title": "Win + Service + Registry Combo",
+    "type": "relevance",
+    "query": "if (windows of operating system) then (exists service \"BesClient\" whose (state of it = \"Running\") AND exists key \"HKLM\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry) else false",
+    "description": "Ensures the BigFix client is installed, running, and its core registry key exists.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-6",
+    "category": "Advanced",
+    "title": "Low Disk + High RAM Combo",
+    "type": "relevance",
+    "query": "exists drives whose ((free space of it * 100 / total space of it < 15) AND (free amount of ram < 2*1024*1024*1024))",
+    "description": "Detects stressed systems suffering from both low disk space and low available RAM.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-7",
+    "category": "Advanced",
+    "title": "Active Network + Old Chrome",
+    "type": "relevance",
+    "query": "exists adapters whose (up of it = true) of network AND exists regapp \"chrome.exe\" whose (version of it < \"100.0.0.0\" as version)",
+    "description": "Finds active machines that are running severely outdated versions of Chrome.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-8",
+    "category": "Advanced",
+    "title": "File + Version + OS Check",
+    "type": "relevance",
+    "query": "if (windows of operating system) then (exists file \"mshtml.dll\" of system folder AND version of file \"mshtml.dll\" of system folder < \"11.0.0.0\") else false",
+    "description": "Detects outdated or vulnerable system DLLs on Windows machines.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-9",
+    "category": "Advanced",
+    "title": "OS + CPU + RAM Profiling",
+    "type": "relevance",
+    "query": "(name of operating system, unique values of vendor names of processors, (total amount of ram / (1024*1024*1024)))",
+    "description": "Provides full hardware and software system profiling in one query.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-10",
+    "category": "Advanced",
+    "title": "Registry + Time + File",
+    "type": "relevance",
+    "query": "exists key \"HKLM\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" whose (last write time of it > (now - 30*day)) of registry AND exists file \"notepad.exe\" of system folder",
+    "description": "Checks for recent registry activity (last 30 days) and file validation simultaneously.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-11",
+    "category": "Advanced",
+    "title": "Network CIDR + OS Filter",
+    "type": "relevance",
+    "query": "windows of operating system AND exists (ipv4 interfaces of adapters whose (up of it = true) of network) whose (cidr string of it starts with \"192.168\")",
+    "description": "Identifies Windows machines residing on a specific internal subnet.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-12",
+    "category": "Advanced",
+    "title": "Encryption Capable + Low Space",
+    "type": "relevance",
+    "query": "(name of it, file_supports_encryption of it, free space of it) of drives whose (file_supports_encryption of it = true AND free space of it < 5*1024*1024*1024)",
+    "description": "Finds encryption-capable drives that are running out of space (under 5GB).",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-13",
+    "category": "Advanced",
+    "title": "Folder Traverse + File Type",
+    "type": "relevance",
+    "query": "exists descendants whose (name of it ends with \".log\") of folder \"C:\\temp\"",
+    "description": "Recursively discovers specific log files hidden deep inside a directory tree.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-14",
+    "category": "Advanced",
+    "title": "Adapter + IP + OS Mapping",
+    "type": "relevance",
+    "query": "(name of operating system, (name of adapter of it, addresses of it) of ipv4 interfaces of adapters whose (up of it = true) of network)",
+    "description": "Maps the operating system directly to active network adapters and IP addresses.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-15",
+    "category": "Advanced",
+    "title": "Service + Account + Path",
+    "type": "relevance",
+    "query": "(display name of it, login account of it, image path of it) of services whose (state of it = \"Running\")",
+    "description": "Maps running services to their execution context, service account, and binary path.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-16",
+    "category": "Advanced",
+    "title": "VM + CPU Check",
+    "type": "relevance",
+    "query": "(virtual machine of operating system, unique values of vendor names of processors)",
+    "description": "Checks if the machine is virtualized alongside the CPU vendor name.",
+    "isFavorite": false
+  },
+  {
+    "id": "adv-17",
+    "category": "Advanced",
+    "title": "Ultimate Endpoint Health",
+    "type": "relevance",
+    "query": "if (windows of operating system) then (exists service \"BesClient\" whose (state of it = \"Running\") AND exists file \"mshtml.dll\" of system folder AND exists key \"HKLM\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry AND exists adapters whose (up of it = true) of network) else false",
+    "description": "Full endpoint health validation checking OS, Files, Registry, Services, and Networking.",
+    "isFavorite": false
+  }
+]
