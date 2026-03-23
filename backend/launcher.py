@@ -6,6 +6,9 @@ import requests
 import psutil
 import os
 import ctypes
+import uvicorn
+import fastapi
+import starlette
 
 # --- 1. FORCE WINDOWS TO USE CRISP 100% SCALING ---
 try:

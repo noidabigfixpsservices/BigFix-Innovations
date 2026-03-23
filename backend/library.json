@@ -1114,5 +1114,385 @@
     "query": "if (windows of operating system) then (exists service \"BesClient\" whose (state of it = \"Running\") AND exists file \"mshtml.dll\" of system folder AND exists key \"HKLM\\SOFTWARE\\Wow6432Node\\BigFix\\EnterpriseClient\" of registry AND exists adapters whose (up of it = true) of network) else false",
     "description": "Full endpoint health validation checking OS, Files, Registry, Services, and Networking.",
     "isFavorite": false
+  },
+  {
+    "id": "adv-intro-process",
+    "category": "Advanced",
+    "title": "Introspect: Process Properties",
+    "type": "client-relevance",
+    "query": "properties of type \"process\"",
+    "description": "Returns a list of all available properties you can query for a process object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-intro-dmi",
+    "category": "Advanced",
+    "title": "Introspect: DMI Properties",
+    "type": "client-relevance",
+    "query": "properties of type \"dmi\"",
+    "description": "Returns a list of all available properties you can query for the DMI (SMBIOS) object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-intro-hw",
+    "category": "Advanced",
+    "title": "Introspect: Hardware Properties",
+    "type": "client-relevance",
+    "query": "properties of type \"hardware\"",
+    "description": "Returns a list of all available properties you can query for the hardware object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-intro-fw",
+    "category": "Advanced",
+    "title": "Introspect: Firewall Properties",
+    "type": "client-relevance",
+    "query": "properties of type \"firewall\"",
+    "description": "Returns a list of all available properties you can query for the firewall object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-intro-env",
+    "category": "Advanced",
+    "title": "Introspect: Environment Properties",
+    "type": "client-relevance",
+    "query": "properties of type \"environment\"",
+    "description": "Returns a list of all available properties you can query for the environment object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-proc-names",
+    "category": "Advanced",
+    "title": "Names of Processes",
+    "type": "client-relevance",
+    "query": "names of processes",
+    "description": "Returns a simple list of the names of all currently running processes.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-proc-pids",
+    "category": "Advanced",
+    "title": "PIDs of Processes",
+    "type": "client-relevance",
+    "query": "pids of processes",
+    "description": "Returns a simple list of the Process IDs for all running processes.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-env-vars",
+    "category": "Advanced",
+    "title": "Environment Variables",
+    "type": "client-relevance",
+    "query": "(name of it & \"=\" & value of it) of variables of environment",
+    "description": "Safely lists all environment variables in a Name=Value format.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-bios-version",
+    "category": "Advanced",
+    "title": "BIOS Version",
+    "type": "client-relevance",
+    "query": "version of bios",
+    "description": "Returns the system BIOS version.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "adv-hw-serial",
+    "category": "Advanced",
+    "title": "Hardware Serial",
+    "type": "client-relevance",
+    "query": "serial of hardware",
+    "description": "Returns the physical hardware serial number.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 12:50 PM"
+  },
+  {
+    "id": "sess-intro-comp",
+    "category": "Introspection",
+    "title": "Properties of BES Computer",
+    "type": "session-relevance",
+    "query": "properties of type \"bes computer\"",
+    "description": "Lists all available Session Relevance properties for the 'bes computer' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-intro-fixlet",
+    "category": "Introspection",
+    "title": "Properties of BES Fixlet",
+    "type": "session-relevance",
+    "query": "properties of type \"bes fixlet\"",
+    "description": "Lists all available Session Relevance properties for the 'bes fixlet' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-intro-action",
+    "category": "Introspection",
+    "title": "Properties of BES Action",
+    "type": "session-relevance",
+    "query": "properties of type \"bes action\"",
+    "description": "Lists all available Session Relevance properties for the 'bes action' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-intro-prop",
+    "category": "Introspection",
+    "title": "Properties of BES Property",
+    "type": "session-relevance",
+    "query": "properties of type \"bes property\"",
+    "description": "Lists all available Session Relevance properties for the 'bes property' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-intro-site",
+    "category": "Introspection",
+    "title": "Properties of BES Site",
+    "type": "session-relevance",
+    "query": "properties of type \"bes site\"",
+    "description": "Lists all available Session Relevance properties for the 'bes site' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-comp-1",
+    "category": "Computers",
+    "title": "List All Computer Names",
+    "type": "session-relevance",
+    "query": "names of bes computers",
+    "description": "Returns a simple list of all endpoints reporting to the Root Server.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-comp-2",
+    "category": "Computers",
+    "title": "Computer Hardware Inventory",
+    "type": "session-relevance",
+    "query": "(id of it, name of it, operating system of it, cpu of it, ip addresses of it) of bes computers",
+    "description": "Pulls core hardware and OS inventory for all registered endpoints.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-comp-3",
+    "category": "Computers",
+    "title": "Last Report Times",
+    "type": "session-relevance",
+    "query": "(name of it, last report time of it) of bes computers",
+    "description": "Checks the last time each endpoint checked in with the server.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-comp-4",
+    "category": "Computers",
+    "title": "Computer Relay Alignment",
+    "type": "session-relevance",
+    "query": "(name of it, relay server of it, root server of it) of bes computers",
+    "description": "Identifies which relay each endpoint is currently reporting to.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-fix-1",
+    "category": "Fixlets & Tasks",
+    "title": "List Relevant Fixlets",
+    "type": "session-relevance",
+    "query": "(id of it, name of it, applicable computer count of it) of bes fixlets whose (applicable computer count of it > 0)",
+    "description": "Finds all Fixlets that are currently relevant to at least one endpoint.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-fix-2",
+    "category": "Fixlets & Tasks",
+    "title": "Custom Fixlets Only",
+    "type": "session-relevance",
+    "query": "(id of it, name of it) of bes fixlets whose (custom flag of it = true)",
+    "description": "Lists Fixlets created by your local operators, excluding out-of-the-box IBM/HCL content.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-fix-3",
+    "category": "Fixlets & Tasks",
+    "title": "Fixlets with No Default Action",
+    "type": "session-relevance",
+    "query": "(id of it, name of it) of bes fixlets whose (not exists default action of it)",
+    "description": "Identifies Fixlets that require manual action selection to deploy.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-act-1",
+    "category": "Actions",
+    "title": "All Running/Open Actions",
+    "type": "session-relevance",
+    "query": "(id of it, name of it, issuer of it, time issued of it) of bes actions whose (state of it = \"Open\")",
+    "description": "Displays all deployment actions currently active in the environment.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-act-2",
+    "category": "Actions",
+    "title": "Action Results (Summary)",
+    "type": "session-relevance",
+    "query": "(name of computer of it, detailed status of it, exit code of it) of results of bes action whose (id of it = 12345)",
+    "description": "REPLACE '12345' with an Action ID to see execution results across all targeted endpoints.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-act-3",
+    "category": "Actions",
+    "title": "Failed Actions",
+    "type": "session-relevance",
+    "query": "(id of action of it, name of computer of it, detailed status of it) of results whose (detailed status of it as lowercase contains \"failed\") of bes actions",
+    "description": "Finds specific computers where an action deployment failed.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-prop-1",
+    "category": "Properties",
+    "title": "List All Global Properties",
+    "type": "session-relevance",
+    "query": "names of bes properties",
+    "description": "Lists the names of all retrieved properties configured in the environment.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-prop-2",
+    "category": "Properties",
+    "title": "Get Property Results for Computers",
+    "type": "session-relevance",
+    "query": "(name of computer of it, values of it) of results of bes property \"User Name\"",
+    "description": "Extracts the reported values for a specific global property across all endpoints.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-site-1",
+    "category": "Sites",
+    "title": "List Custom Sites",
+    "type": "session-relevance",
+    "query": "(name of it, url of it) of bes sites whose (custom site flag of it = true)",
+    "description": "Shows all custom sites created in your specific deployment.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:00 PM"
+  },
+  {
+    "id": "sess-intro-server",
+    "category": "Introspection",
+    "title": "Properties of BES Server",
+    "type": "session-relevance",
+    "query": "properties of type \"bes server\"",
+    "description": "Lists all available Session Relevance properties for the 'bes server' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-product",
+    "category": "Introspection",
+    "title": "Properties of BES Product",
+    "type": "session-relevance",
+    "query": "properties of type \"bes product\"",
+    "description": "Lists all available Session Relevance properties for the 'bes product' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-compgroup",
+    "category": "Introspection",
+    "title": "Properties of BES Computer Group",
+    "type": "session-relevance",
+    "query": "properties of type \"bes computer group\"",
+    "description": "Lists all available Session Relevance properties for the 'bes computer group' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-domain",
+    "category": "Introspection",
+    "title": "Properties of BES Domain",
+    "type": "session-relevance",
+    "query": "properties of type \"bes domain\"",
+    "description": "Lists all available Session Relevance properties for the 'bes domain' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-webui",
+    "category": "Introspection",
+    "title": "Properties of BES WebUI",
+    "type": "session-relevance",
+    "query": "properties of type \"bes webui\"",
+    "description": "Lists all available Session Relevance properties for the 'bes webui' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-wizard",
+    "category": "Introspection",
+    "title": "Properties of BES Wizard",
+    "type": "session-relevance",
+    "query": "properties of type \"bes wizard\"",
+    "description": "Lists all available Session Relevance properties for the 'bes wizard' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-prop-result",
+    "category": "Introspection",
+    "title": "Properties of BES Property Result",
+    "type": "session-relevance",
+    "query": "properties of type \"bes property result\"",
+    "description": "Lists all available Session Relevance properties for the 'bes property result' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-fix-result",
+    "category": "Introspection",
+    "title": "Properties of BES Fixlet Result",
+    "type": "session-relevance",
+    "query": "properties of type \"bes fixlet result\"",
+    "description": "Lists all available Session Relevance properties for the 'bes fixlet result' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-act-result",
+    "category": "Introspection",
+    "title": "Properties of BES Action Result",
+    "type": "session-relevance",
+    "query": "properties of type \"bes action result\"",
+    "description": "Lists all available Session Relevance properties for the 'bes action result' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
+  },
+  {
+    "id": "sess-intro-act-status",
+    "category": "Introspection",
+    "title": "Properties of BES Action Status",
+    "type": "session-relevance",
+    "query": "properties of type \"bes action status\"",
+    "description": "Lists all available Session Relevance properties for the 'bes action status' object.",
+    "isFavorite": false,
+    "updated_at": "Mar 21, 2026 - 1:05 PM"
   }
 ]
