@@ -421,21 +421,51 @@ function App() {
     setIsBesTestingAct(false);
   };
 
-  const handleGenerateBes = async () => {
-    if (!besForm.title.trim()) return alert("Please provide a name for this Fixlet.");
-    if (!besForm.relText.trim() || !besForm.actText.trim()) {
-      const missing = []; if (!besForm.relText.trim()) missing.push("Relevance"); if (!besForm.actText.trim()) missing.push("ActionScript");
+  const handleGenerateBes = async (e) => {
+    if (e) e.preventDefault(); 
+
+    const title = besForm?.title || "Custom_Fixlet";
+    const rel = besForm?.relText || "";
+    const act = besForm?.actText || "";
+
+    if (!title.trim()) return alert("Please provide a name for this Fixlet.");
+    
+    if (!rel.trim() || !act.trim()) {
+      const missing = []; 
+      if (!rel.trim()) missing.push("Relevance"); 
+      if (!act.trim()) missing.push("ActionScript");
       if (!window.confirm(`Warning: Your Fixlet is missing ${missing.join(" and ")}.\n\nDo you want to generate the .bes file anyway?`)) return;
     }
+    
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/export-bes', { title: besForm.title, relevance: besForm.relText, actionscript: besForm.actText });
-      const blob = new Blob([response.data.xml], { type: 'text/xml' }); const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `${besForm.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.bes`;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url);
-      setIsBesModalOpen(false); setIsBesMaximized(false);
-    } catch (err) { alert("Failed to generate .bes file."); }
+      // SMART URL: Uses 8000 for browser testing, but uses relative paths for the compiled .exe!
+      const baseUrl = window.location.port === '5173' ? 'http://127.0.0.1:8000' : '';
+      
+      const response = await axios.post(`${baseUrl}/api/export-bes`, { 
+          title: title, 
+          relevance: rel || 'true', 
+          actionscript: act 
+      });
+      
+      const blob = new Blob([response.data.xml], { type: 'text/xml' }); 
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a'); 
+      a.href = url; 
+      a.download = `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.bes`;
+      
+      document.body.appendChild(a); 
+      a.click(); 
+      document.body.removeChild(a); 
+      window.URL.revokeObjectURL(url);
+      
+      setIsBesModalOpen(false); 
+      setIsBesMaximized(false);
+    } catch (err) { 
+        console.error("BES Export Error:", err);
+        alert("Failed to generate .bes file. Check backend connection."); 
+    }
   };
-
+  
   const handleEditorDidMount = (editor, monaco) => {
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => { document.getElementById('run-btn')?.click(); });
     monaco.languages.register({ id: 'bigfix' });
