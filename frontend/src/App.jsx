@@ -1,16 +1,13 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import Editor from '@monaco-editor/react';
 import axios from 'axios';
-// ADDED RefreshCw to the list below:
 import { Search, Plus, Maximize, Shrink, PanelLeftClose, PanelLeft, ChevronDown, ChevronRight, Star, StarOff, GripVertical, GripHorizontal, Trash2, Edit2, Check, WrapText, FileCode, Save, Clock, Share2, Zap, History, X, Sun, Moon, Download, Play, Server, Globe, Target, RefreshCw, Copy } from 'lucide-react';
 import { getRelevanceSuggestions } from './relevanceSuggestions';
 
-// NEW: Force Monaco to bundle locally instead of using the CDN
+// Force Monaco to bundle locally instead of using the CDN
 import * as monaco from 'monaco-editor';
 import { loader } from '@monaco-editor/react';
 loader.config({ monaco });
-
-
 
 function App() {
   const [activeWorkspace, setActiveWorkspace] = useState('relevance');
@@ -26,7 +23,6 @@ function App() {
   const defaultRelTerminal = 'PS C:\\BigFixStudio> Relevance Engine initialized...';
   const defaultActTerminal = 'PS C:\\BigFixStudio> ActionScript Engine initialized. Awaiting execution...';
 
-  // --- HOT EXIT: PERSISTENT TABS ---
   const [relTabs, setRelTabs] = useState(() => {
       const saved = localStorage.getItem('bigfix_rel_tabs');
       const parsed = saved ? JSON.parse(saved) : [{ id: 'rel-1', title: 'Relevance Scratchpad 1', query: defaultRelQuery, snippetId: null, terminalOutput: defaultRelTerminal, type: 'client-relevance' }];
@@ -64,21 +60,18 @@ function App() {
       setRelTabs(prev => prev.map(t => t.id === activeRelTabId ? { ...t, type: newType } : t));
   };
 
-  const [loadingType, setLoadingType] = useState(null); // 'local', 'api', 'remote'
-  
-  // NEW: Ref to hold the active polling timer
+  const [loadingType, setLoadingType] = useState(null); 
   const pollingIntervalRef = useRef(null);
 
-  // NEW: Function to instantly kill the polling loop
   const cancelPolling = () => {
       if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
           pollingIntervalRef.current = null;
           setLoadingType(null);
-          // FIX: Use activeTab.terminalOutput directly as a string instead of a callback function
           updateActiveTabOutput(activeTab?.terminalOutput + '\n\nE: 🛑 Polling aborted by user.');
       }
   };
+
   const [wordWrap, setWordWrap] = useState('off');
   const [autoSuggest, setAutoSuggest] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -91,7 +84,7 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [showNewTabMenu, setShowNewTabMenu] = useState(false); // NEW: Dropdown menu state
+  const [showNewTabMenu, setShowNewTabMenu] = useState(false); 
   
   const [expandedCategories, setExpandedCategories] = useState({ Favorites: true });
   const [masterExpanded, setMasterExpanded] = useState({ client: false, session: false });
@@ -99,7 +92,6 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newSnippet, setNewSnippet] = useState({ title: '', category: 'Custom', type: 'client-relevance', description: '', query: '' });
 
-  // TARGET MODAL STATE
   const [isRemoteModalOpen, setIsRemoteModalOpen] = useState(false);
   const [remoteTarget, setRemoteTarget] = useState(() => localStorage.getItem('bigfix_remote_target') || '');
 
@@ -131,14 +123,13 @@ function App() {
   const [editingTitleId, setEditingTitleId] = useState(null);
   const [editTitleText, setEditTitleText] = useState("");
 
-  // DYNAMIC THEME COLORS BASED ON TAB TYPE
   const getTabColor = (type) => {
-      if (type === 'session-relevance') return '#8b5cf6'; // Purple
-      if (type === 'actionscript') return '#d97706'; // Orange
-      return '#0ea5e9'; // Blue (Client)
+      if (type === 'session-relevance') return '#8b5cf6'; 
+      if (type === 'actionscript') return '#d97706'; 
+      return '#0ea5e9'; 
   };
   const themeColor = getTabColor(activeTabType);
-  const themeBgColor = `${themeColor}25`; // Hex transparency
+  const themeBgColor = `${themeColor}25`; 
   const scaleFactor = 100 / (uiZoom / 100);
 
   const isDark = themeMode === 'dark';
@@ -338,7 +329,6 @@ function App() {
     setLoadingType(null);
   };
 
-  // --- ASYNCHRONOUS REMOTE CLIENT QUERY LOOP ---
   const runRemoteQuery = async () => {
     if (!remoteTarget.trim()) return alert("Enter a Target Hostname or ID.");
     localStorage.setItem('bigfix_remote_target', remoteTarget);
@@ -354,9 +344,8 @@ function App() {
         
         updateActiveTabOutput(`PS C:\\BigFixStudio> Target: ${resolvedId}\nPS C:\\BigFixStudio> Query ID: ${queryId}\nPS C:\\BigFixStudio> Waiting for endpoint to respond...`);
         
-        let attempts = 0; const maxAttempts = 40; // 120 sec total timeout
+        let attempts = 0; const maxAttempts = 40; 
         
-        // Store the interval in our React Ref so we can kill it externally
         pollingIntervalRef.current = setInterval(async () => {
             attempts++;
             try {
@@ -389,10 +378,8 @@ function App() {
     navigator.clipboard.writeText(clipboardText); alert("Copied to clipboard! Ready to paste in Teams/Slack.");
   };
 
-  
   const handleSmartCopy = () => {
     const output = activeTab?.terminalOutput || "";
-    // Filter only lines that start with A: or E:, and remove the "A: " prefix so it's pure data
     const cleanOutput = output.split('\n')
         .filter(line => line.startsWith('A: ') || line.startsWith('E: '))
         .map(line => line.substring(3))
@@ -407,8 +394,6 @@ function App() {
     alert("Smart Copy successful! Raw results copied to clipboard.");
   };
 
-
-
   const testBesRelevance = async () => {
     setIsBesTestingRel(true); setBesRelResult('PS C:\\BigFixStudio> Executing Relevance...');
     try { const response = await axios.post('http://127.0.0.1:8000/api/run-relevance', { query: besForm.relText || 'true' }); setBesRelResult(response.data.result || 'Executed successfully but returned no standard output.'); } catch (error) { setBesRelResult('E: Execution Error - ' + (error.response?.data?.detail || error.message)); }
@@ -421,8 +406,56 @@ function App() {
     setIsBesTestingAct(false);
   };
 
+  // --- UPGRADED: Smart Modal Terminal Renderer ---
+  const renderModalTerminal = (outputText) => {
+    if (!outputText || outputText.includes("Ready for")) {
+      return <div style={{ color: colors.textMuted, padding: '10px', fontSize: '12px', fontFamily: "'JetBrains Mono', monospace", height: '100%' }}>{outputText || "Ready for testing..."}</div>;
+    }
+
+    return (
+      <div className="custom-scrollbar" style={{ 
+        height: '100%',       // FIX: Now stretches to the bottom of the container!
+        width: '100%',
+        overflowY: 'auto',   
+        padding: '10px', 
+        fontFamily: "'JetBrains Mono', monospace", 
+        fontSize: '12px',
+        whiteSpace: 'pre-wrap',
+        wordBreak: 'break-all',
+        boxSizing: 'border-box'
+      }}>
+        {outputText.split('\n').map((line, idx) => {
+          // ENHANCED: Specifically hunts for BigFix CLI ActionScript errors
+          const lowerLine = line.toLowerCase();
+          const isError = lowerLine.includes('failed') || 
+                          lowerLine.includes('error') || 
+                          line.startsWith('E:') ||
+                          lowerLine.includes('unknown action command') ||
+                          lowerLine.includes('syntax error') ||
+                          lowerLine.includes('singular expression');
+                          
+          return (
+            <div key={idx} style={{ 
+              color: isError ? '#ef4444' : (line.startsWith('A:') ? '#10b981' : colors.textMain), 
+              fontWeight: isError || line.startsWith('A:') ? 'bold' : 'normal',
+              background: isError ? 'rgba(239, 68, 68, 0.1)' : 'transparent',
+              padding: isError ? '4px 8px' : '2px 0',
+              borderRadius: '4px',
+              marginBottom: '4px',
+              borderLeft: isError ? '3px solid #ef4444' : '3px solid transparent' // Pro-level error indicator
+            }}>
+              {line}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+
   const handleGenerateBes = async (e) => {
-    if (e) e.preventDefault(); 
+    // 1. Stop the page refresh!
+    if (e && e.preventDefault) e.preventDefault(); 
 
     const title = besForm?.title || "Custom_Fixlet";
     const rel = besForm?.relText || "";
@@ -430,15 +463,8 @@ function App() {
 
     if (!title.trim()) return alert("Please provide a name for this Fixlet.");
     
-    if (!rel.trim() || !act.trim()) {
-      const missing = []; 
-      if (!rel.trim()) missing.push("Relevance"); 
-      if (!act.trim()) missing.push("ActionScript");
-      if (!window.confirm(`Warning: Your Fixlet is missing ${missing.join(" and ")}.\n\nDo you want to generate the .bes file anyway?`)) return;
-    }
-    
     try {
-      // SMART URL: Uses 8000 for browser testing, but uses relative paths for the compiled .exe!
+      // 2. Smart URL to handle both Vite testing and the compiled Pywebview .exe
       const baseUrl = window.location.port === '5173' ? 'http://127.0.0.1:8000' : '';
       
       const response = await axios.post(`${baseUrl}/api/export-bes`, { 
@@ -447,25 +473,21 @@ function App() {
           actionscript: act 
       });
       
-      const blob = new Blob([response.data.xml], { type: 'text/xml' }); 
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a'); 
-      a.href = url; 
-      a.download = `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.bes`;
+      // 3. Check if Python successfully wrote the file
+      if (response.data.success) {
+          alert(response.data.message); // This will pop up showing the exact file path!
+          setIsBesModalOpen(false); 
+          setIsBesMaximized(false);
+      } else {
+          alert("Error generating file: " + response.data.error);
+      }
       
-      document.body.appendChild(a); 
-      a.click(); 
-      document.body.removeChild(a); 
-      window.URL.revokeObjectURL(url);
-      
-      setIsBesModalOpen(false); 
-      setIsBesMaximized(false);
     } catch (err) { 
         console.error("BES Export Error:", err);
         alert("Failed to generate .bes file. Check backend connection."); 
     }
   };
-  
+
   const handleEditorDidMount = (editor, monaco) => {
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => { document.getElementById('run-btn')?.click(); });
     monaco.languages.register({ id: 'bigfix' });
@@ -599,6 +621,13 @@ function App() {
         .nav-tab.active-act { color: #d97706; border-bottom: 2px solid #d97706; }
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); display: flex; justify-content: center; align-items: center; z-index: 100; }
         ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: ${colors.border}; border-radius: 4px; }
+        
+        /* Custom Scrollbar for Modal Terminals */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
         .action-icon:hover { transform: scale(1.1); filter: brightness(1.2); }
         .edit-icon { opacity: 0; transition: opacity 0.2s; cursor: pointer; }
         .snippet-item:hover .edit-icon { opacity: 1; }
@@ -630,13 +659,22 @@ function App() {
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <div style={{ fontSize: '12px', color: colors.textMuted, marginRight: '10px' }}>Zoom: {uiZoom}%</div>
           
-          {/* --- NEW RELOAD BUTTON --- */}
+          {/* RELOAD BUTTON */}
           <button onClick={() => window.location.reload()} className="hover-lift" title="Reload Window" style={{ display:'flex', alignItems:'center', justifyContent: 'center', padding:'8px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer' }}>
             <RefreshCw size={18} />
           </button>
 
           <button onClick={() => setIsSettingsOpen(true)} className="hover-lift" title="BigFix API Connection Settings" style={{ display:'flex', alignItems:'center', justifyContent: 'center', padding:'8px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer' }}><Server size={18} /></button>
-          <button onClick={() => { let relText = ''; let actText = ''; if (activeWorkspace === 'relevance' && activeSnippetId && activeSnippetId.length > 20) { relText = activeQuery; } if (activeWorkspace === 'actionscript' && activeSnippetId && activeSnippetId.length > 20) { actText = activeQuery; } setBesForm({ title: 'My Custom Fixlet', relText, actText }); setIsBesModalOpen(true); }} className="hover-lift" title="Generate .bes Fixlet" style={{ display:'flex', alignItems:'center', gap:'6px', padding:'8px 16px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer', fontSize:'13px', fontWeight:'600' }}><Download size={18} /> Export .bes</button>
+          <button onClick={() => { 
+              // Only auto-fill if the user hasn't already started writing a custom fixlet!
+              if (!besForm.relText && !besForm.actText) {
+                  let relText = ''; let actText = ''; 
+                  if (activeWorkspace === 'relevance' && activeSnippetId && activeSnippetId.length > 20) { relText = activeQuery; } 
+                  if (activeWorkspace === 'actionscript' && activeSnippetId && activeSnippetId.length > 20) { actText = activeQuery; } 
+                  setBesForm({ title: 'My Custom Fixlet', relText, actText }); 
+              }
+              setIsBesModalOpen(true); 
+          }} className="hover-lift" title="Generate .bes Fixlet" style={{ display:'flex', alignItems:'center', gap:'6px', padding:'8px 16px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer', fontSize:'13px', fontWeight:'600' }}><Download size={18} /> Export .bes</button>
           <button onClick={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')} className="hover-lift" title="Toggle Theme" style={{ display:'flex', alignItems:'center', justifyContent: 'center', padding:'8px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer' }}>{themeMode === 'dark' ? <Sun size={18} /> : <Moon size={18} />}</button>
           <button onClick={() => { setNewSnippet({ title: '', category: 'Custom', type: activeWorkspace === 'relevance' ? 'client-relevance' : 'actionscript', description: '', query: '' }); setIsModalOpen(true); }} className="hover-lift" style={{ display:'flex', alignItems:'center', gap:'6px', padding:'8px 16px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer', fontSize:'13px', fontWeight:'600' }}><Plus size={18} /> Add Blank</button>
           <button onClick={toggleFullscreen} className="hover-lift" style={{ padding:'8px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer' }}><Maximize size={18} /></button>
@@ -757,7 +795,7 @@ function App() {
 
                 {activeTabType === 'client-relevance' && (
                    <>
-                     {/* --- NEW: Persistent Target Input Box --- */}
+                     {/* --- Persistent Target Input Box --- */}
                      <div style={{ display: 'flex', alignItems: 'center', background: colors.panelBg, border: `1px solid ${colors.border}`, borderRadius: '6px', padding: '0 8px', height: '42px', boxShadow: shadows.neuInput }}>
                          <Target size={14} color={colors.textMuted} />
                          <input 
@@ -944,40 +982,94 @@ function App() {
       )}
 
       {/* --- EXPORT TO .BES MODAL --- */}
+      {/* --- EXPORT TO .BES MODAL --- */}
       {isBesModalOpen && (
-        <div className="modal-overlay">
-          <div className="neu-panel bes-modal" style={{ width: isBesMaximized ? '95vw' : '800px', height: isBesMaximized ? '95vh' : 'auto', maxHeight: '95vh', display: 'flex', flexDirection: 'column', gap: '15px', background: colors.panelBg, padding: '25px', overflow: 'hidden' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><h2 style={{ margin: 0, color: '#10b981', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}><Download size={22} /> Generate BigFix Fixlet (.bes)</h2><div style={{ display: 'flex', gap: '10px' }}><button onClick={() => setIsBesMaximized(!isBesMaximized)} className="hover-lift" title={isBesMaximized ? "Restore Size" : "Maximize Screen"} style={{ background: 'transparent', border: 'none', color: colors.textMuted, cursor: 'pointer' }}>{isBesMaximized ? <Shrink size={18} /> : <Maximize size={18} />}</button><button onClick={() => setIsBesModalOpen(false)} className="hover-lift" title="Close" style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer' }}><X size={22} /></button></div></div>
-            <div style={{ display: 'flex', flexDirection: isBesMaximized ? 'row' : 'column', gap: '20px', flex: 1, overflow: 'hidden' }}>
-                <div style={{ flex: isBesMaximized ? '1' : 'none', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '15px', paddingRight: '10px' }}>
-                    <div style={{ padding: '15px', background: colors.panelInner, borderRadius: '8px', border: `1px solid ${colors.border}` }}><label style={{ fontSize:'13px', color: colors.textMain, marginBottom:'6px', display:'block', fontWeight:'600' }}>Fixlet Title *</label><input className="neu-input" style={{ padding: '8px', background: colors.bgBase, border: `1px solid ${colors.border}` }} value={besForm.title} onChange={e => setBesForm({...besForm, title: e.target.value})} placeholder="e.g. Deploy Chrome Update" /></div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <div className="modal-overlay" onClick={() => setIsBesModalOpen(false)}>
+          <div className="neu-panel bes-modal" onClick={(e) => e.stopPropagation()} style={{ width: isBesMaximized ? '95vw' : '900px', height: isBesMaximized ? '95vh' : '85vh', maxHeight: '95vh', display: 'flex', flexDirection: 'column', gap: '15px', background: colors.panelBg, padding: '25px', overflow: 'hidden' }}>
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+                <h2 style={{ margin: 0, color: '#10b981', fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}><Download size={22} /> Generate BigFix Fixlet (.bes)</h2>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button onClick={() => setIsBesMaximized(!isBesMaximized)} className="hover-lift" title={isBesMaximized ? "Restore Size" : "Maximize Screen"} style={{ background: 'transparent', border: 'none', color: colors.textMuted, cursor: 'pointer' }}>{isBesMaximized ? <Shrink size={18} /> : <Maximize size={18} />}</button>
+                    <button onClick={() => setIsBesModalOpen(false)} className="hover-lift" title="Hide Modal (Saves Work)" style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer' }}><X size={22} /></button>
+                </div>
+            </div>
+
+            {/* MAIN CONTENT AREA */}
+            <div style={{ display: 'flex', flexDirection: isBesMaximized ? 'row' : 'column', gap: '20px', flex: 1, overflow: 'hidden', minHeight: 0 }}>
+                
+                {/* LEFT SIDE: EDITORS */}
+                <div style={{ flex: isBesMaximized ? 1 : 'none', display: 'flex', flexDirection: 'column', gap: '15px', overflowY: isBesMaximized ? 'hidden' : 'auto', minHeight: 0, paddingRight: '5px' }}>
+                    <div style={{ padding: '15px', background: colors.panelInner, borderRadius: '8px', border: `1px solid ${colors.border}`, flexShrink: 0 }}>
+                        <label style={{ fontSize:'13px', color: colors.textMain, marginBottom:'6px', display:'block', fontWeight:'600' }}>Fixlet Title *</label>
+                        <input className="neu-input" style={{ padding: '8px', background: colors.bgBase, border: `1px solid ${colors.border}` }} value={besForm.title} onChange={e => setBesForm({...besForm, title: e.target.value})} placeholder="e.g. Deploy Chrome Update" />
+                    </div>
+                    
+                    {/* Relevance Block */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1, minHeight: '150px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexShrink: 0 }}>
                             <label style={{ fontSize:'13px', color: '#0ea5e9', fontWeight:'700' }}>1. Relevance Code</label>
                             <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <Search size={12} color={colors.textMuted}/><input placeholder="Search library to load..." value={relSearch} style={{ padding: '4px 8px', fontSize: '11px', width: '220px', background: colors.bgBase, color: colors.textTitle, border: `1px solid ${colors.border}`, borderRadius: '4px', outline: 'none' }} onFocus={() => setShowRelDropdown(true)} onBlur={() => setTimeout(() => setShowRelDropdown(false), 200)} onChange={(e) => setRelSearch(e.target.value)}/>
+                                <Search size={12} color={colors.textMuted}/>
+                                <input placeholder="Search library to load..." value={relSearch} style={{ padding: '4px 8px', fontSize: '11px', width: '220px', background: colors.bgBase, color: colors.textTitle, border: `1px solid ${colors.border}`, borderRadius: '4px', outline: 'none' }} onFocus={() => setShowRelDropdown(true)} onBlur={() => setTimeout(() => setShowRelDropdown(false), 200)} onChange={(e) => setRelSearch(e.target.value)}/>
                                 {showRelDropdown && (<div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '4px', width: '220px', maxHeight: '150px', overflowY: 'auto', background: colors.panelBg, border: `1px solid ${colors.border}`, borderRadius: '6px', boxShadow: shadows.neuOut, zIndex: 1000 }}>{library.filter(i => (i.type === 'client-relevance' || i.type === 'relevance') && i.title.toLowerCase().includes(relSearch.toLowerCase())).map(item => (<div key={item.id} style={{ padding: '8px 10px', fontSize: '11px', color: colors.textTitle, cursor: 'pointer', borderBottom: `1px solid ${colors.border}` }} onMouseDown={() => { setBesForm(prev => ({...prev, relText: item.query})); setRelSearch(''); setShowRelDropdown(false); }} onMouseOver={(e) => e.currentTarget.style.background = colors.hover} onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}>{item.title}</div>))}</div>)}
                             </div>
                         </div>
-                        <div style={{ display: 'flex', gap: '10px' }}><textarea value={besForm.relText} onChange={e => setBesForm({...besForm, relText: e.target.value})} placeholder="Enter Relevance here... (Leave blank to default to 'true')" style={{ flex: 1, height: isBesMaximized ? '180px' : '80px', background: colors.editorBg, border: `1px solid ${colors.border}`, color: colors.textTitle, padding: '10px', borderRadius: '6px', fontSize: '12px', fontFamily: "'JetBrains Mono', monospace", resize: 'none', outline: 'none' }} /><button onClick={testBesRelevance} disabled={isBesTestingRel} className="hover-lift" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 15px', background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: '6px', cursor: isBesTestingRel ? 'wait' : 'pointer', fontWeight: '700', fontSize: '11px' }}><Play size={16} style={{ marginBottom: '4px' }}/> {isBesTestingRel ? 'Running...' : 'TEST'}</button></div>
+                        <div style={{ display: 'flex', gap: '10px', flex: 1, minHeight: 0 }}>
+                            <div style={{ flex: 1, border: `1px solid ${colors.border}`, borderRadius: '6px', overflow: 'hidden' }}>
+                                <Editor height="100%" language="client-relevance" theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={besForm.relText} onChange={(val) => setBesForm({...besForm, relText: val || ''})} options={{ minimap: { enabled: false }, lineNumbers: 'on', scrollBeyondLastLine: false, wordWrap: 'on', fontSize: 12, padding: { top: 8 } }} />
+                            </div>
+                            <button onClick={testBesRelevance} disabled={isBesTestingRel} className="hover-lift" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 15px', background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: '6px', cursor: isBesTestingRel ? 'wait' : 'pointer', fontWeight: '700', fontSize: '11px' }}>
+                                <Play size={16} style={{ marginBottom: '4px' }}/> {isBesTestingRel ? 'Running...' : 'TEST'}
+                            </button>
+                        </div>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+
+                    {/* ActionScript Block */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1, minHeight: '150px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexShrink: 0 }}>
                             <label style={{ fontSize:'13px', color: '#d97706', fontWeight:'700' }}>2. ActionScript Code</label>
                             <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <Search size={12} color={colors.textMuted}/><input placeholder="Search library to load..." value={actSearch} style={{ padding: '4px 8px', fontSize: '11px', width: '220px', background: colors.bgBase, color: colors.textTitle, border: `1px solid ${colors.border}`, borderRadius: '4px', outline: 'none' }} onFocus={() => setShowActDropdown(true)} onBlur={() => setTimeout(() => setShowActDropdown(false), 200)} onChange={(e) => setActSearch(e.target.value)}/>
+                                <Search size={12} color={colors.textMuted}/>
+                                <input placeholder="Search library to load..." value={actSearch} style={{ padding: '4px 8px', fontSize: '11px', width: '220px', background: colors.bgBase, color: colors.textTitle, border: `1px solid ${colors.border}`, borderRadius: '4px', outline: 'none' }} onFocus={() => setShowActDropdown(true)} onBlur={() => setTimeout(() => setShowActDropdown(false), 200)} onChange={(e) => setActSearch(e.target.value)}/>
                                 {showActDropdown && (<div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '4px', width: '220px', maxHeight: '150px', overflowY: 'auto', background: colors.panelBg, border: `1px solid ${colors.border}`, borderRadius: '6px', boxShadow: shadows.neuOut, zIndex: 1000 }}>{library.filter(i => i.type === 'actionscript' && i.title.toLowerCase().includes(actSearch.toLowerCase())).map(item => (<div key={item.id} style={{ padding: '8px 10px', fontSize: '11px', color: colors.textTitle, cursor: 'pointer', borderBottom: `1px solid ${colors.border}` }} onMouseDown={() => { setBesForm(prev => ({...prev, actText: item.query})); setActSearch(''); setShowActDropdown(false); }} onMouseOver={(e) => e.currentTarget.style.background = colors.hover} onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}>{item.title}</div>))}</div>)}
                             </div>
                         </div>
-                        <div style={{ display: 'flex', gap: '10px' }}><textarea value={besForm.actText} onChange={e => setBesForm({...besForm, actText: e.target.value})} placeholder="Enter ActionScript here..." style={{ flex: 1, height: isBesMaximized ? '220px' : '100px', background: colors.editorBg, border: `1px solid ${colors.border}`, color: colors.textTitle, padding: '10px', borderRadius: '6px', fontSize: '12px', fontFamily: "'JetBrains Mono', monospace", resize: 'none', outline: 'none' }} /><button onClick={testBesActionScript} disabled={isBesTestingAct} className="hover-lift" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 15px', background: '#d97706', color: '#fff', border: 'none', borderRadius: '6px', cursor: isBesTestingAct ? 'wait' : 'pointer', fontWeight: '700', fontSize: '11px' }}><Play size={16} style={{ marginBottom: '4px' }}/> {isBesTestingAct ? 'Running...' : 'TEST'}</button></div>
+                        <div style={{ display: 'flex', gap: '10px', flex: 1, minHeight: 0 }}>
+                            <div style={{ flex: 1, border: `1px solid ${colors.border}`, borderRadius: '6px', overflow: 'hidden' }}>
+                                <Editor height="100%" language="actionscript" theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={besForm.actText} onChange={(val) => setBesForm({...besForm, actText: val || ''})} options={{ minimap: { enabled: false }, lineNumbers: 'on', scrollBeyondLastLine: false, wordWrap: 'on', fontSize: 12, padding: { top: 8 } }} />
+                            </div>
+                            <button onClick={testBesActionScript} disabled={isBesTestingAct} className="hover-lift" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 15px', background: '#d97706', color: '#fff', border: 'none', borderRadius: '6px', cursor: isBesTestingAct ? 'wait' : 'pointer', fontWeight: '700', fontSize: '11px' }}>
+                                <Play size={16} style={{ marginBottom: '4px' }}/> {isBesTestingAct ? 'Running...' : 'TEST'}
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div style={{ width: isBesMaximized ? '45%' : '100%', height: isBesMaximized ? '100%' : '200px', display: 'flex', flexDirection: 'column', gap: '15px', overflow: 'hidden' }}>
-                    <div className="neu-pressed" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px', border: isDark ? 'none' : `1px solid ${colors.border}`, background: colors.panelBg }}><div style={{ fontSize: '11px', color: '#0ea5e9', fontWeight: '800', marginBottom: '8px', letterSpacing: '0.5px' }}>RELEVANCE TEST OUTPUT</div><div style={{ flex: 1, overflowY: 'auto', background: colors.terminalBg, borderRadius: '6px', border: `1px solid ${colors.border}`, padding: '8px' }}>{renderTerminalLines('relevance', besRelResult)}</div></div>
-                    <div className="neu-pressed" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px', border: isDark ? 'none' : `1px solid ${colors.border}`, background: colors.panelBg }}><div style={{ fontSize: '11px', color: '#d97706', fontWeight: '800', marginBottom: '8px', letterSpacing: '0.5px' }}>ACTIONSCRIPT TEST OUTPUT</div><div style={{ flex: 1, overflowY: 'auto', background: colors.terminalBg, borderRadius: '6px', border: `1px solid ${colors.border}`, padding: '8px' }}>{renderTerminalLines('actionscript', besActResult)}</div></div>
+
+                {/* RIGHT SIDE: TERMINALS */}
+                <div style={{ width: isBesMaximized ? '45%' : '100%', flex: isBesMaximized ? 'none' : 1, display: 'flex', flexDirection: 'column', gap: '15px', minHeight: 0 }}>
+                    <div className="neu-pressed" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px', border: isDark ? 'none' : `1px solid ${colors.border}`, background: colors.panelBg, minHeight: 0 }}>
+                        <div style={{ flexShrink: 0, fontSize: '11px', color: '#0ea5e9', fontWeight: '800', marginBottom: '8px', letterSpacing: '0.5px' }}>RELEVANCE TEST OUTPUT</div>
+                        <div style={{ flex: 1, background: colors.terminalBg, borderRadius: '6px', border: `1px solid ${colors.border}`, overflow: 'hidden', minHeight: 0 }}>
+                            {renderModalTerminal(besRelResult)}
+                        </div>
+                    </div>
+                    <div className="neu-pressed" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px', border: isDark ? 'none' : `1px solid ${colors.border}`, background: colors.panelBg, minHeight: 0 }}>
+                        <div style={{ flexShrink: 0, fontSize: '11px', color: '#d97706', fontWeight: '800', marginBottom: '8px', letterSpacing: '0.5px' }}>ACTIONSCRIPT TEST OUTPUT</div>
+                        <div style={{ flex: 1, background: colors.terminalBg, borderRadius: '6px', border: `1px solid ${colors.border}`, overflow: 'hidden', minHeight: 0 }}>
+                            {renderModalTerminal(besActResult)}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', paddingTop: '10px', borderTop: `1px solid ${colors.border}` }}><button onClick={() => setIsBesModalOpen(false)} style={{ padding:'8px 16px', background:'transparent', color: colors.textMuted, border:'none', cursor:'pointer', fontWeight:'600', fontSize:'14px' }}>Cancel</button><button onClick={handleGenerateBes} className="hover-lift" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding:'8px 24px', background: '#10b981', color:'#fff', border:'none', borderRadius:'6px', cursor:'pointer', fontWeight:'800', fontSize:'14px' }}><Download size={18} /> DOWNLOAD .BES</button></div>
+            
+            {/* FOOTER */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', paddingTop: '10px', borderTop: `1px solid ${colors.border}`, flexShrink: 0 }}>
+                {/* Cancel now destroys the data so you can start fresh */}
+                <button onClick={() => { setIsBesModalOpen(false); setBesForm({title: '', relText: '', actText: ''}); setBesRelResult('Ready...'); setBesActResult('Ready...'); }} style={{ padding:'8px 16px', background:'transparent', color: colors.textMuted, border:'none', cursor:'pointer', fontWeight:'600', fontSize:'14px' }}>Cancel</button>
+                <button type="button" onClick={handleGenerateBes} className="hover-lift" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding:'8px 24px', background: '#10b981', color:'#fff', border:'none', borderRadius:'6px', cursor:'pointer', fontWeight:'800', fontSize:'14px' }}><Download size={18} /> DOWNLOAD .BES</button>
+            </div>
+
           </div>
         </div>
       )}
