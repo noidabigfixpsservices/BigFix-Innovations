@@ -1,3 +1,4 @@
+import webview
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -454,3 +455,4 @@ if os.path.exists(dist_path):
             f"<h1>UI Build Missing!</h1><p>The executable could not find the UI files inside itself. Path checked: {index_path}</p>", 
             status_code=404
         )
+        

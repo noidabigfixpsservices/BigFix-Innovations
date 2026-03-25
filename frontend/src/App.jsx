@@ -10,6 +10,20 @@ import { loader } from '@monaco-editor/react';
 loader.config({ monaco });
 
 function App() {
+  // --- THE ULTIMATE CURSOR FIX: WAIT FOR FONT BEFORE MOUNTING ---
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+
+  useEffect(() => {
+    // Force the browser to wait until all web fonts (JetBrains Mono) are downloaded and painted
+    document.fonts.ready.then(() => {
+      // Add a tiny 50ms buffer to ensure the browser paint cycle is completely finished
+      setTimeout(() => {
+        setIsFontLoaded(true);
+      }, 50);
+    });
+  }, []);
+  // --------------------------------------------------------------
+
   const [activeWorkspace, setActiveWorkspace] = useState('relevance');
   const [themeMode, setThemeMode] = useState(() => localStorage.getItem('bigfix_theme') || 'dark');
   useEffect(() => { localStorage.setItem('bigfix_theme', themeMode); }, [themeMode]);
@@ -488,6 +502,7 @@ function App() {
     }
   };
 
+  // --- CLEAN MOUNT HANDLER: No more dirty hacks or set intervals! ---
   const handleEditorDidMount = (editor, monaco) => {
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => { document.getElementById('run-btn')?.click(); });
     monaco.languages.register({ id: 'bigfix' });
@@ -666,7 +681,6 @@ function App() {
 
           <button onClick={() => setIsSettingsOpen(true)} className="hover-lift" title="BigFix API Connection Settings" style={{ display:'flex', alignItems:'center', justifyContent: 'center', padding:'8px', background: colors.buttonBg, color: colors.textTitle, border: `1px solid ${colors.buttonBorder}`, borderRadius:'6px', cursor:'pointer' }}><Server size={18} /></button>
           <button onClick={() => { 
-              // Only auto-fill if the user hasn't already started writing a custom fixlet!
               if (!besForm.relText && !besForm.actText) {
                   let relText = ''; let actText = ''; 
                   if (activeWorkspace === 'relevance' && activeSnippetId && activeSnippetId.length > 20) { relText = activeQuery; } 
@@ -896,8 +910,15 @@ function App() {
                 )}
             </div>
             
+            {/* --- FIX: DELAYED EDITOR MOUNT TO PREVENT CURSOR BUG --- */}
             <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden', background: colors.editorBg, minHeight: 0, border: isDark ? 'none' : `1px solid ${colors.border}` }}>
-              <Editor height="100%" language={activeWorkspace === 'relevance' ? 'bigfix' : 'bat'} theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={activeQuery} onChange={handleQueryChange} onMount={handleEditorDidMount} options={{ minimap: { enabled: false }, fontSize: 15, fontFamily: "'JetBrains Mono', monospace", padding: { top: 15 }, lineHeight: 24, wordWrap: wordWrap, quickSuggestions: autoSuggest, wordBasedSuggestions: false }} />
+              {isFontLoaded ? (
+                  <Editor height="100%" language={activeWorkspace === 'relevance' ? 'bigfix' : 'bat'} theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={activeQuery} onChange={handleQueryChange} onMount={handleEditorDidMount} options={{ minimap: { enabled: false }, fontSize: 15, fontFamily: "'JetBrains Mono', monospace", padding: { top: 15 }, lineHeight: 24, wordWrap: wordWrap, quickSuggestions: autoSuggest, wordBasedSuggestions: false }} />
+              ) : (
+                  <div style={{ padding: '20px', color: colors.textMuted, fontFamily: 'monospace', fontSize: '13px' }}>
+                      Loading IDE Engine and Fonts...
+                  </div>
+              )}
             </div>
           </div>
 
@@ -982,7 +1003,6 @@ function App() {
       )}
 
       {/* --- EXPORT TO .BES MODAL --- */}
-      {/* --- EXPORT TO .BES MODAL --- */}
       {isBesModalOpen && (
         <div className="modal-overlay" onClick={() => setIsBesModalOpen(false)}>
           <div className="neu-panel bes-modal" onClick={(e) => e.stopPropagation()} style={{ width: isBesMaximized ? '95vw' : '900px', height: isBesMaximized ? '95vh' : '85vh', maxHeight: '95vh', display: 'flex', flexDirection: 'column', gap: '15px', background: colors.panelBg, padding: '25px', overflow: 'hidden' }}>
@@ -1016,8 +1036,13 @@ function App() {
                             </div>
                         </div>
                         <div style={{ display: 'flex', gap: '10px', flex: 1, minHeight: 0 }}>
+                            {/* --- FIX: DELAYED MOUNT FOR MODAL RELEVANCE EDITOR --- */}
                             <div style={{ flex: 1, border: `1px solid ${colors.border}`, borderRadius: '6px', overflow: 'hidden' }}>
-                                <Editor height="100%" language="client-relevance" theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={besForm.relText} onChange={(val) => setBesForm({...besForm, relText: val || ''})} options={{ minimap: { enabled: false }, lineNumbers: 'on', scrollBeyondLastLine: false, wordWrap: 'on', fontSize: 12, padding: { top: 8 } }} />
+                                {isFontLoaded ? (
+                                    <Editor height="100%" language="client-relevance" theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={besForm.relText} onChange={(val) => setBesForm({...besForm, relText: val || ''})} options={{ minimap: { enabled: false }, lineNumbers: 'on', scrollBeyondLastLine: false, wordWrap: 'on', fontSize: 12, padding: { top: 8 }, fontFamily: "'JetBrains Mono', monospace" }} />
+                                ) : (
+                                    <div style={{ padding: '10px', color: colors.textMuted, fontSize: '12px' }}>Loading Engine...</div>
+                                )}
                             </div>
                             <button onClick={testBesRelevance} disabled={isBesTestingRel} className="hover-lift" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 15px', background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: '6px', cursor: isBesTestingRel ? 'wait' : 'pointer', fontWeight: '700', fontSize: '11px' }}>
                                 <Play size={16} style={{ marginBottom: '4px' }}/> {isBesTestingRel ? 'Running...' : 'TEST'}
@@ -1036,8 +1061,13 @@ function App() {
                             </div>
                         </div>
                         <div style={{ display: 'flex', gap: '10px', flex: 1, minHeight: 0 }}>
+                            {/* --- FIX: DELAYED MOUNT FOR MODAL ACTIONSCRIPT EDITOR --- */}
                             <div style={{ flex: 1, border: `1px solid ${colors.border}`, borderRadius: '6px', overflow: 'hidden' }}>
-                                <Editor height="100%" language="actionscript" theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={besForm.actText} onChange={(val) => setBesForm({...besForm, actText: val || ''})} options={{ minimap: { enabled: false }, lineNumbers: 'on', scrollBeyondLastLine: false, wordWrap: 'on', fontSize: 12, padding: { top: 8 } }} />
+                                {isFontLoaded ? (
+                                    <Editor height="100%" language="actionscript" theme={themeMode === 'dark' ? 'vs-dark' : 'light'} value={besForm.actText} onChange={(val) => setBesForm({...besForm, actText: val || ''})} options={{ minimap: { enabled: false }, lineNumbers: 'on', scrollBeyondLastLine: false, wordWrap: 'on', fontSize: 12, padding: { top: 8 }, fontFamily: "'JetBrains Mono', monospace" }} />
+                                ) : (
+                                    <div style={{ padding: '10px', color: colors.textMuted, fontSize: '12px' }}>Loading Engine...</div>
+                                )}
                             </div>
                             <button onClick={testBesActionScript} disabled={isBesTestingAct} className="hover-lift" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 15px', background: '#d97706', color: '#fff', border: 'none', borderRadius: '6px', cursor: isBesTestingAct ? 'wait' : 'pointer', fontWeight: '700', fontSize: '11px' }}>
                                 <Play size={16} style={{ marginBottom: '4px' }}/> {isBesTestingAct ? 'Running...' : 'TEST'}

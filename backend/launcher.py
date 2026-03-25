@@ -51,7 +51,8 @@ def kill_zombie_processes():
                 logging.info(f"Successfully killed orphaned process: {proc.info['name']} (PID: {proc.info['pid']})")
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
-
+        
+        
 if __name__ == '__main__':
     # Start Backend
     t = threading.Thread(target=start_server)
@@ -62,6 +63,10 @@ if __name__ == '__main__':
     
     # Setup Bridge
     api = Api()
+    
+    # --- NEW: Define persistent folder for WebView Cache (Fixes Hot Exit Amnesia) ---
+    app_data_path = os.path.join(os.getenv('APPDATA'), 'BigFixStudio', 'WebViewProfile')
+    os.makedirs(app_data_path, exist_ok=True)
     
     # Create Window
     native_window = webview.create_window(
@@ -74,8 +79,9 @@ if __name__ == '__main__':
         js_api=api
     )
     
-    # Start Window
-    webview.start()
+
+    # --- FIX 2: Start Window with persistent profile instead of volatile RAM ---
+    webview.start(private_mode=False, storage_path=app_data_path)
     
     # Cleanup on exit
     kill_zombie_processes()
